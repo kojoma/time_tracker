@@ -1,21 +1,29 @@
 default: &default
-  adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  adapter: mysql2
+  database: time_tracker_development
   username: root
   password:
   host: db
 
-development:
-  <<: *default
-  database: time_tracker_development
-
 test:
   <<: *default
+  adapter: mysql2
   database: time_tracker_test
+  username: root
+  password:
+  host: db
 
 production:
   <<: *default
-  database: time_tracker_production
-  username: time_tracker
-  password: <%= ENV['TIME_TRACKER_DATABASE_PASSWORD'] %>
+  adapter: posgresql
+  url: <%= ENV['DATABASE_URL'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
+  database: <%= ENV['DATABASE'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
