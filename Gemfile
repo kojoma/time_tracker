@@ -73,3 +73,6 @@ gem 'active_link_to'
 
 # Authentication
 gem 'devise'
+
+# Slack
+gem 'slack-ruby-client'
