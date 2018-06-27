@@ -1,4 +1,5 @@
 class WorkHoursController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_work_hour, only: [:show, :edit, :update, :destroy]
 
   # GET /work_hours

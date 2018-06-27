@@ -14,8 +14,16 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><%= link_to 'WorkHour', work_hours_path %></li>
+        <%= active_link_to 'WorkHour', work_hours_path, wrap_tag: :li %>
+        <%= active_link_to 'User', users_path, wrap_tag: :li %>
       </ul>
+
+      <% if user_signed_in? %>
+        <div class="navbar-right">
+          <p class="navbar-text"><%= current_user.email %></p>
+          <%= link_to('Sign out', destroy_user_session_path, method: :delete, class: "btn btn-danger navbar-btn") %>
+        </div>
+      <% end %>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
