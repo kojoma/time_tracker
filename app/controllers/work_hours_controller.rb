@@ -70,6 +70,6 @@ class WorkHoursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_hour_params
-      params.require(:work_hour).permit(:name, :date, :hour)
+      params.require(:work_hour).permit(:project, :date, :hour)
     end
 end

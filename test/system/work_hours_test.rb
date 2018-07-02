@@ -16,7 +16,7 @@ class WorkHoursTest < ApplicationSystemTestCase
 
     fill_in "Date", with: @work_hour.date
     fill_in "Hour", with: @work_hour.hour
-    fill_in "Name", with: @work_hour.name
+    fill_in "Project", with: @work_hour.project
     click_on "Create Work hour"
 
     assert_text "Work hour was successfully created"
@@ -29,7 +29,7 @@ class WorkHoursTest < ApplicationSystemTestCase
 
     fill_in "Date", with: @work_hour.date
     fill_in "Hour", with: @work_hour.hour
-    fill_in "Name", with: @work_hour.name
+    fill_in "Project", with: @work_hour.project
     click_on "Update Work hour"
 
     assert_text "Work hour was successfully updated"
