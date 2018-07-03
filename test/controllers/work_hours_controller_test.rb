@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'date'
 
 class WorkHoursControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -17,7 +18,8 @@ class WorkHoursControllerTest < ActionDispatch::IntegrationTest
 
   test "should create work_hour" do
     assert_difference('WorkHour.count') do
-      post work_hours_url, params: { work_hour: { date: @work_hour.date, hour: @work_hour.hour, project: @work_hour.project } }
+      new_project = "new_#{@work_hour.project}"
+      post work_hours_url, params: { work_hour: { date: @insert_date, hour: @work_hour.hour, project: new_project } }
     end
 
     assert_redirected_to work_hour_url(WorkHour.last)
