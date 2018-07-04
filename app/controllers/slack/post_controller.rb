@@ -56,6 +56,7 @@ class Slack::PostController < ApplicationController
 
   def register_work_hour(params)
     if valid_params?(params)
+      params['date'] = Date.parse(params['date'], complete = true)
       @work_hour = WorkHour.new(params)
 
       if @work_hour.save
@@ -90,26 +91,10 @@ class Slack::PostController < ApplicationController
 
   def valid_date?(str)
     begin
-      y, m, d = extract_ymd(str)
-      return Date.valid_date?(y, m, d)
+      @date = Date.parse(str, complete = true)
+      return @date ? true : false
     rescue
       return false
     end
-  end
-
-  def extract_ymd(str)
-    match_slash = str.match(/(^\d{4})\/(\d{1}|\d{2})\/(\d{2}$|\d{1}$)/)
-    if match_slash
-      logger.debug("date matched slash pattern.")
-      return str.split("/").map(&:to_i)
-    end
-
-    match_hyphen = str.match(/(^\d{4})-(\d{1}|\d{2})-(\d{1}$|\d{2}$)/)
-    if match_hyphen
-      logger.debug("date matched hyphen pattern.")
-      return str.split("-").map(&:to_i)
-    end
-
-    return 0, 0, 0
   end
 end
