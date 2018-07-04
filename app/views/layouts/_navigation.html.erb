@@ -1,29 +1,32 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to 'TimeTracker', root_path, {:class => "navbar-brand"} %>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <%= link_to 'TimeTracker', root_path, {:class => "navbar-brand"} %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav  mr-auto">
+      <li class="nav-item<%= ' active' if current_page?(root_path) %>">
+        <%= link_to 'Home', root_path, {:class => "nav-link"} %>
+      </li>
+      <li class="nav-item<%= ' active' if current_page?(work_hours_path) %>">
+        <%= link_to 'WorkHour', work_hours_path, {:class => "nav-link"} %>
+      </li>
+      <li class="nav-item<%= ' active' if current_page?(users_path) %>">
+        <%= link_to 'User', users_path, {:class => "nav-link"} %>
+      </li>
+    </ul>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <%= active_link_to 'WorkHour', work_hours_path, wrap_tag: :li %>
-        <%= active_link_to 'User', users_path, wrap_tag: :li %>
-      </ul>
-
-      <% if user_signed_in? %>
-        <div class="navbar-right">
-          <p class="navbar-text"><%= current_user.email %></p>
-          <%= link_to('Sign out', destroy_user_session_path, method: :delete, class: "btn btn-danger navbar-btn") %>
+    <% if user_signed_in? %>
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= current_user.email %>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <%= link_to('Sign out', destroy_user_session_path, method: :delete, class: "dropdown-item") %>
         </div>
-      <% end %>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+      </li>
+    </ul>
+    <% end %>
+  </div>
 </nav>
