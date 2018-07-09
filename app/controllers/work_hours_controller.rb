@@ -5,7 +5,7 @@ class WorkHoursController < ApplicationController
   # GET /work_hours
   # GET /work_hours.json
   def index
-    @work_hours = WorkHour.all
+    @work_hours = WorkHour.search(search_params)
   end
 
   # GET /work_hours/1
@@ -71,5 +71,9 @@ class WorkHoursController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_hour_params
       params.require(:work_hour).permit(:project, :date, :hour)
+    end
+
+    def search_params
+      params.permit(:project, :year, :month)
     end
 end
