@@ -56,7 +56,8 @@ class Slack::PostController < ApplicationController
 
   def register_work_hour(params)
     if valid_params?(params)
-      params['date'] = Date.parse(params['date'], complete = true)
+      params['date'] = get_date_object_from_param(params['date'])
+
       @work_hour = WorkHour.new(params)
 
       if @work_hour.save
@@ -90,11 +91,28 @@ class Slack::PostController < ApplicationController
   end
 
   def valid_date?(str)
+    if str == 'today'
+      return true
+    end
+
     begin
       @date = Date.parse(str, complete = true)
       return @date ? true : false
     rescue
       return false
     end
+  end
+
+  def get_date_object_from_param(str)
+    date = nil
+
+    case str
+    when 'today' then
+      date = Date.today
+    else
+      date = Date.parse(str, complete = true)
+    end
+
+    return date
   end
 end
