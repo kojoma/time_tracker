@@ -6,6 +6,12 @@ class WorkHoursController < ApplicationController
   # GET /work_hours.json
   def index
     @work_hours = WorkHour.search(search_params)
+
+    total = 0
+    @work_hours.each do |work_hour|
+      total += work_hour.hour
+    end
+    @total = total
   end
 
   # GET /work_hours/1
