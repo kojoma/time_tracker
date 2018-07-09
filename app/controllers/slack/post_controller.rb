@@ -33,7 +33,7 @@ class Slack::PostController < ApplicationController
   def handle_event_message(message)
     result = {}
 
-    matched = message.match(/(<@.*?>)\s+(\S.*)\s+(\S.*)\s+([1-9]$|1\d$|2[0-4]$)/)
+    matched = message.match(/(<@.*?>)\s+(\S.*)\s+(\S.*)\s+(\S.*$)/)
     unless matched
       result['handle'] = false
       result['message'] = "not matched message pattern."
@@ -81,7 +81,7 @@ class Slack::PostController < ApplicationController
       return false
     end
 
-    if params["hour"].to_i == 0
+    if params["hour"].to_f == 0
       logger.debug("failed to validate hour: #{params["hour"].inspect}")
       return false
     end
