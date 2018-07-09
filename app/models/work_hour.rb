@@ -23,7 +23,7 @@ class WorkHour < ApplicationRecord
         end
       end
 
-      WorkHour.where(hash).all
+      WorkHour.where(hash).order(:date).all
     else
       WorkHour.all
     end
