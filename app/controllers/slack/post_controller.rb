@@ -33,7 +33,7 @@ class Slack::PostController < ApplicationController
   def handle_event_message(message)
     result = {}
 
-    matched = message.match(/(<@.*?>)\s+(\S.*)\s+(\S.*)\s+([1-9]$|1\d$|2[0-4]$)/)
+    matched = message.match(/(<@.*?>)\s+(\S.*)\s+(\S.*)\s+(\S.*$)/)
     unless matched
       result['handle'] = false
       result['message'] = "not matched message pattern."
@@ -56,7 +56,8 @@ class Slack::PostController < ApplicationController
 
   def register_work_hour(params)
     if valid_params?(params)
-      params['date'] = Date.parse(params['date'], complete = true)
+      params['date'] = get_date_object_from_param(params['date'])
+
       @work_hour = WorkHour.new(params)
 
       if @work_hour.save
@@ -81,7 +82,7 @@ class Slack::PostController < ApplicationController
       return false
     end
 
-    if params["hour"].to_i == 0
+    if params["hour"].to_f == 0
       logger.debug("failed to validate hour: #{params["hour"].inspect}")
       return false
     end
@@ -90,11 +91,28 @@ class Slack::PostController < ApplicationController
   end
 
   def valid_date?(str)
+    if str == 'today'
+      return true
+    end
+
     begin
       @date = Date.parse(str, complete = true)
       return @date ? true : false
     rescue
       return false
     end
+  end
+
+  def get_date_object_from_param(str)
+    date = nil
+
+    case str
+    when 'today' then
+      date = Date.today
+    else
+      date = Date.parse(str, complete = true)
+    end
+
+    return date
   end
 end
