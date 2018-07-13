@@ -2,6 +2,12 @@
 
 <h1>Work Hours</h1>
 
+<div class="form-inline">
+  <div class="form-group mx-sm-3 mb-2">
+    <%= link_to 'New Work Hour', new_work_hour_path, {:class => 'btn btn-primary'} %>
+  </div>
+</div>
+
 <%= form_tag work_hours_path, :method => 'get', :class => 'form-inline' do %>
   <div class="form-group mx-sm-3 mb-2">
     <label for="project" class="sr-only">Project</label>
@@ -18,7 +24,9 @@
     <%= text_field_tag :month, params[:month], {:id => 'month', :class => 'form-control', :placeholder => 'Month'} %>
   </div>
 
-  <%= submit_tag "Search", {:class => 'btn btn-primary'} %>
+  <div class="form-group mx-sm-3 mb-2">
+    <%= submit_tag "Search", {:class => 'btn btn-dark'} %>
+  </div>
 <% end %>
 
 <br>
@@ -49,6 +57,4 @@
 
 <br>
 
-<p class="lead">Total Hour: <%= @total %></p>
-
-<%= link_to 'New Work Hour', new_work_hour_path %>
+<p class="lead text-right">Total Hour: <%= @total %></p>

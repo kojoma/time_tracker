@@ -1,3 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>TimeTracker Home</h1>
+<h2>This Month Summary</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Work Hour</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @work_summary_list.each do |summary| %>
+      <tr>
+        <td><%= summary[:project] %></td>
+        <td><%= summary[:hour] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
