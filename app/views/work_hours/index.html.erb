@@ -58,3 +58,8 @@
 <br>
 
 <p class="lead text-right">Total Hour: <%= @total %></p>
+
+<canvas id="workHourChart" width="400" height="400"></canvas>
+<%= javascript_tag do %>
+  draw_graph(<%== @chart_labels %>, <%= @chart_datas %>);
+<% end %>
