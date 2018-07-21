@@ -8,8 +8,13 @@ class WorkHoursController < ApplicationController
     @work_hours = WorkHour.search(search_params)
 
     total = 0
+    @chart_labels = []
+    @chart_datas = []
+
     @work_hours.each do |work_hour|
       total += work_hour.hour
+      @chart_labels.push(work_hour.date.strftime("%Y-%m-%d"))
+      @chart_datas.push(work_hour.hour)
     end
     @total = total
   end

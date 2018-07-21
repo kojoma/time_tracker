@@ -45,7 +45,7 @@
     <% @work_hours.each do |work_hour| %>
       <tr>
         <td><%= work_hour.project %></td>
-        <td><%= work_hour.date %></td>
+        <td><%= work_hour.date %>&nbsp;(<%= work_hour.date.strftime("%a") %>)</td>
         <td><%= work_hour.hour %></td>
         <td><%= link_to 'Show', work_hour %></td>
         <td><%= link_to 'Edit', edit_work_hour_path(work_hour) %></td>
@@ -58,3 +58,8 @@
 <br>
 
 <p class="lead text-right">Total Hour: <%= @total %></p>
+
+<canvas id="workHourChart" width="400" height="400"></canvas>
+<%= javascript_tag do %>
+  draw_graph(<%== @chart_labels %>, <%= @chart_datas %>);
+<% end %>
