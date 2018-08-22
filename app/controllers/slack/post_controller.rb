@@ -10,33 +10,41 @@ class Slack::PostController < ApplicationController
     when 'url_verification'
       render status: 200, json: {challenge: @body['challenge']}
     when 'event_callback'
-      result = handle_event_message(@body['event']['text'])
-
-      if result['handle']
-        response_text = register_work_hour(result['params'])
-      else
-        response_text = result['message']
-      end
+      handle_result = handle_received_message(@body['event']['text'])
 
       @client = Slack::Web::Client.new
-      @client.chat_postMessage(
-        as_user: 'true',
-        channel: @body['event']['channel'],
-        text: response_text
-      )
+      if handle_result['success']
+        register_result = register_work_hour(handle_result['params'])
+
+        # post register result message when only necessary
+        if register_result['should_post']
+          @client.chat_postMessage(
+            as_user: 'true',
+            channel: @body['event']['channel'],
+            text: register_result['message']
+          )
+        end
+      else
+        # post failed to handle message
+        @client.chat_postMessage(
+          as_user: 'true',
+          channel: @body['event']['channel'],
+          text: handle_result['message']
+        )
+      end
+
       render status: 200, json: {}
     end
   end
 
   private
-    def handle_event_message(message)
+    def handle_received_message(message)
       result = {}
 
       matched = message.match(/(<@.*?>)\s+(\S.*)\s+(\S.*)\s+(\S.*$)/)
       unless matched
-        result['handle'] = false
+        result['success'] = false
         result['message'] = "not matched message pattern."
-        return result
       else
         project = matched[2]
         date = matched[3]
@@ -47,27 +55,34 @@ class Slack::PostController < ApplicationController
           "hour" => hour
         }
 
-        result['handle'] = true
+        result['success'] = true
         result['params'] = params
-        return result
       end
+
+      return result
     end
 
     def register_work_hour(params)
+      result = {}
+
       if valid_params?(params)
         params['date'] = get_date_object_from_param(params['date'])
 
         @work_hour = WorkHour.new(params)
 
         if @work_hour.save
-          return "work hour saved!"
+          result['should_post'] = true
+          result['message'] = "work hour saved!"
         else
-          logger.warn("failed to save work hour. #{@work_hour.inspect}")
-          return "failed to save work hour."
+          logger.warn("failed to save work hour, but not critical error. only output log. #{@work_hour.inspect}")
+          result['should_post'] = false
         end
       else
-        return "failed to validate."
+          result['should_post'] = true
+          result['message'] = "failed to validate."
       end
+
+      return result
     end
 
     def valid_params?(params)
