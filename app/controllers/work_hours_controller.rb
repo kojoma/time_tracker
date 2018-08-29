@@ -7,6 +7,12 @@ class WorkHoursController < ApplicationController
   def index
     @work_hours = WorkHour.search(search_params)
 
+    @project_options = []
+    projects = WorkHour.select(:project).group(:project).order(:project)
+    @project_options = projects.map { |p|
+      [p.project, p.project]
+    }
+
     total = 0
     @chart_labels = []
     @chart_datas = []
