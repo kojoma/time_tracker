@@ -11,7 +11,7 @@
 <%= form_tag work_hours_path, :method => 'get', :class => 'form-inline' do %>
   <div class="form-group mx-sm-3 mb-2">
     <label for="project" class="sr-only">Project</label>
-    <%= text_field_tag :project, params[:project], {:id => 'project', :class => 'form-control', :placeholder => "Project"} %>
+    <%= select '', :project, @project_options, {:prompt => 'project', :selected => params[:project]}, {:id => 'project', :class => 'form-control'} %>
   </div>
 
   <div class="form-group mx-sm-3 mb-2">
