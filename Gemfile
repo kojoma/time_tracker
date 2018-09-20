@@ -78,3 +78,6 @@ gem 'slack-ruby-client'
 
 # Draw chart
 gem 'chart-js-rails'
+
+# Paginate
+gem 'kaminari'

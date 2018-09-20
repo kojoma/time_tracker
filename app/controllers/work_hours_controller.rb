@@ -91,6 +91,6 @@ class WorkHoursController < ApplicationController
     end
 
     def search_params
-      params.permit(:project, :year, :month)
+      params.permit(:project, :year, :month, :page)
     end
 end
