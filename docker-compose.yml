@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile.db
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - dbdata:/var/lib/mysql
 
   web:
     build:
@@ -20,3 +22,6 @@ services:
     depends_on:
       - db
     env_file: .env
+
+volumes:
+  dbdata:
