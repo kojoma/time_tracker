@@ -9,23 +9,25 @@
 </div>
 
 <%= form_tag work_hours_path, :method => 'get', :class => 'form-inline' do %>
-  <div class="form-group mx-sm-3 mb-2">
-    <label for="project" class="sr-only">Project</label>
-    <%= select '', :project, @project_options, {:prompt => 'project', :selected => params[:project]}, {:id => 'project', :class => 'form-control'} %>
-  </div>
+  <div class="form-inline mb-5">
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="project" class="sr-only">Project</label>
+      <%= select '', :project, @project_options, {:prompt => 'project', :selected => params[:project]}, {:id => 'project', :class => 'form-control'} %>
+    </div>
 
-  <div class="form-group mx-sm-3 mb-2">
-    <label for="year" class="sr-only">Year</label>
-    <%= text_field_tag :year, params[:year], {:id => 'year', :class => 'form-control', :placeholder => 'Year'} %>
-  </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="year" class="sr-only">Year</label>
+      <%= text_field_tag :year, params[:year], {:id => 'year', :class => 'form-control', :placeholder => 'Year'} %>
+    </div>
 
-  <div class="form-group mx-sm-3 mb-2">
-    <label for="month" class="sr-only">Month</label>
-    <%= text_field_tag :month, params[:month], {:id => 'month', :class => 'form-control', :placeholder => 'Month'} %>
-  </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="month" class="sr-only">Month</label>
+      <%= text_field_tag :month, params[:month], {:id => 'month', :class => 'form-control', :placeholder => 'Month'} %>
+    </div>
 
-  <div class="form-group mx-sm-3 mb-2">
-    <%= submit_tag "Search", {:class => 'btn btn-dark'} %>
+    <div class="form-group mx-sm-3 mb-2">
+      <%= submit_tag "Search", {:class => 'btn btn-dark'} %>
+    </div>
   </div>
 <% end %>
 
