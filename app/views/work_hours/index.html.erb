@@ -29,8 +29,6 @@
   </div>
 <% end %>
 
-<br>
-
 <%= paginate @work_hours, params: {project: params[:project], year: params[:year], month: params[:month]} %>
 
 <table class="table table-striped">
@@ -57,7 +55,7 @@
   </tbody>
 </table>
 
-<br>
+<%= paginate @work_hours, params: {project: params[:project], year: params[:year], month: params[:month]} %>
 
 <p class="lead text-right">Total Hour: <%= @total %></p>
 
