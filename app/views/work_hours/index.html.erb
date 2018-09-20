@@ -31,6 +31,8 @@
 
 <br>
 
+<%= paginate @work_hours, params: {project: params[:project], year: params[:year], month: params[:month]} %>
+
 <table class="table table-striped">
   <thead>
     <tr>

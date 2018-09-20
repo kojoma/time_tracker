@@ -3,6 +3,8 @@ class WorkHour < ApplicationRecord
 
   validates :project, uniqueness: { scope: [:date] }
 
+  DEFAULT_PAGE = 1
+
   def self.search(params)
     if params.present?
       hash = {}
@@ -23,9 +25,11 @@ class WorkHour < ApplicationRecord
         end
       end
 
-      WorkHour.where(hash).order(:date).all
+      page = params[:page].present? ? params[:page] : DEFAULT_PAGE
+
+      WorkHour.where(hash).order(:date).page(page)
     else
-      WorkHour.all
+      WorkHour.page(DEFAULT_PAGE)
     end
   end
 end
