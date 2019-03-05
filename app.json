@@ -52,6 +52,7 @@
   },
   "name": "time_tracker",
   "scripts": {
+    "postdeploy": "bin/setup-review-apps"
   },
   "stack": "heroku-16"
 }
