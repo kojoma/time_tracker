@@ -1,0 +1,57 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "env": {
+    "DATABASE": {
+      "required": true
+    },
+    "DATABASE_HOST": {
+      "required": true
+    },
+    "DATABASE_PASSWORD": {
+      "required": true
+    },
+    "DATABASE_PORT": {
+      "required": true
+    },
+    "DATABASE_USERNAME": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_LOG_TO_STDOUT": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    },
+    "SLACK_API_TOKEN": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "time_tracker",
+  "scripts": {
+  },
+  "stack": "heroku-16"
+}
