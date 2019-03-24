@@ -6,6 +6,7 @@ class HomeController < ApplicationController
   def index
     today = Date.today
     @work_summary_list = get_work_summary(today.year, today.month)
+    @summary_total_hour = @work_summary_list.map { |item| item[:hour] }.sum()
   end
 
   private
