@@ -1,7 +1,7 @@
 require 'date'
 
 # Create test account
-User.create(email: 'test@example.com', password: 'test')
+User.create(email: 'test@example.com', password: 'password')
 
 # Create test work_hour data
 projects = %w(aaa bbb ccc)
