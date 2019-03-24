@@ -13,6 +13,13 @@ class WorkHoursController < ApplicationController
       [p.project, p.project]
     }
 
+    years = WorkHour.select("YEAR(date) as year").group("year").order("year")
+    @year_options = years.map { |year|
+      [year.year, year.year]
+    }
+
+    @month_options = (1..12).to_a.map { |month| [month, month] }
+
     total = 0
     @chart_labels = []
     @chart_datas = []
