@@ -205,9 +205,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.13.0)
+    selenium-webdriver (3.141.0)
       childprocess (~> 0.5)
-      rubyzip (~> 1.2)
+      rubyzip (~> 1.2, >= 1.2.2)
     slack-ruby-client (0.11.1)
       activesupport
       faraday (>= 0.9)
