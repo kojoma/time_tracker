@@ -14,9 +14,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.web
+      args:
+        RUBY_VERSION: 2.5.1
     command: bundle exec rails s -p 3000 -b "0.0.0.0"
     volumes:
-      - .:/time_tracker
+      - vendor:/vendor
+      - .:/time_tracker:cached
     ports:
       - "3000:3000"
     depends_on:
@@ -25,3 +28,4 @@ services:
 
 volumes:
   dbdata:
+  vendor:
