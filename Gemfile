@@ -67,7 +67,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Bootstrap
-gem 'bootstrap', '~> 4.5.0'
+gem 'bootstrap', '~> 4.5.2'
 gem 'jquery-rails'
 
 # Authentication
